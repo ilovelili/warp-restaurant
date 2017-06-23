@@ -1,0 +1,8 @@
+# Logs
+*.log
+
+# Coverage directory
+/coverage
+
+# node packages
+/node_modules

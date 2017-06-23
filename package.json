@@ -1,0 +1,58 @@
+{
+  "name": "warp-restaurant",
+  "version": "1.0.0",
+  "description": "warp web application for tourists looking for a restaurant nearby",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "pm2": "pm2 start ecosystem.json --env=production && pm2 logs",
+    "dev": "pm2-dev src",
+    "start": "npm run db && npm run dev",
+    "test:integration": "mocha 'test/integration/**/*.js' --trace-warnings",
+    "test:unit": "mocha 'test/unit/**/*.js' --trace-warnings",
+    "test:coverage": "istanbul cover _mocha --report html -- 'test/{unit,integration}/**/*.js'",
+    "test:codecov": "npm run test:coverage && codecov --token=a6d1ad7e-18e5-4dcd-a713-b1f26eef4d74",
+    "test": "npm run lint && npm run db:start && npm run db:migrate && npm run test:coverage",
+    "ci": "npm run lint && npm run db:start && npm run db:migrate && npm run test:codecov",
+    "db:migrate": "node ./db/migrate",
+    "db:seed": "node ./db/seed",
+    "db:start": "node ./db",
+    "db": "npm run db:start && npm run db:migrate && npm run db:seed"
+  },
+  "engines": {
+    "node": "^6.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/ilovelili/warp-restaurant"
+  },
+  "author": "Min Ju <route666@live.cn>",  
+  "homepage": "https://github.com/ilovelili/warp-restaurant#readme",
+  "dependencies": {
+    "concurrency-logger": "^2.0.1",
+    "kcors": "^2.2.1",
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.1.0",
+    "moment": "^2.17.1",
+    "parse-database-url": "^0.3.0",
+    "pg": "^6.2.2",
+    "pm2": "^2.4.0",
+    "sequelize": "^4.0.0-2",
+    "sequelize-cli": "^2.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "codecov": "^1.0.1",
+    "eslint": "^3.15.0",
+    "eslint-config-sexy": "^2.0.0",
+    "fastdev-psql": "^1.2.3",
+    "istanbul": "^1.0.0-alpha.2",
+    "mocha": "^3.4.1",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^3.0.0",
+    "supertest-koa-agent": "^0.3.0"
+  }
+}
