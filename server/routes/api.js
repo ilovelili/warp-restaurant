@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 /* GET all users. */
-router.get('/users', (req, res) => {
+router.get('/users', (req, res) => {  
   User.find({}, (err, users) => {
     if (err) res.status(500).send(error)
 
