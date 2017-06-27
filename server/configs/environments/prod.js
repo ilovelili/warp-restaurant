@@ -5,7 +5,5 @@ module.exports = {
         enabled: true,
         logLevel: 'common', // Standard Apache common log output.
     },
-    database: {
-
-    },
+    database: "warp",
 };

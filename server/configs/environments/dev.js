@@ -5,7 +5,5 @@ module.exports = {
         enabled: true,
         logLevel: 'dev', // Concise output colored by response status for development use.
     },
-    database: {
-
-    },
+    database: "warp-dev",
 };

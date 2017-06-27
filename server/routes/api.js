@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const db = require('../configs').database;
 
 // MongoDB URL from the docker-compose file
-const dbHost = 'mongodb://database/warp';
+const dbHost = `mongodb://database/${db}`;
 
 // Connect to mongodb
 mongoose.connect(dbHost);
