@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light bg-faded">
+    <div class="container">
+        <a class="navbar-brand" href="#">WARP Restaurants</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div [style.margin-top.px]="10" class="row col-lg-12">
+        <form class="form-inline" (ngSubmit)="search(radius.value)">
+            <div class="form-group">
+                <input type="number" class="form-control" id="radius" #radius placeholder="radius in meters." max="50000" min="100" step="100">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- error msg -->
+    <div [style.margin-top.px]="10" class="text-danger" *ngIf="errormsg">{{errormsg}}</div>
+
+    <div [style.margin-top.px]="10" class="row" *ngIf="restaurants.length">
+        <h4>Restaurants</h4>
+        <!-- Bootstrap Card -->
+        <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let restaurant of restaurants">
+            <!--<h4 class="card-title">{{person.name}} {{person.age}}</h4>-->
+        </div>
+    </div>
+</div>

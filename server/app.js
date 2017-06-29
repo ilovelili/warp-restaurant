@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const configs = require('./configs');
 
-const api = require('./routes/api');
+const place = require('./routes/place');
 const healthcheck = require('./routes/healthcheck');
 
 // middleware
@@ -28,6 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'), { etag: false }));
 
 app.use('/health', healthcheck);
-app.use('/api', api);
+app.use('/api', place);
 
 module.exports = app;
