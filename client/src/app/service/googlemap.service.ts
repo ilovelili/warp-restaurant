@@ -30,7 +30,15 @@ export class GoogleMapService {
 
             let mapOptions = {
                 center: pyrmont,
-                zoom: 15, // hard code
+                /**
+                * zoom level:
+                    1: World
+                    5: Landmass/continent
+                    10: City
+                    15: Streets
+                    20: Buildings
+                */
+                zoom: 15,
             };
 
             this.map = this.createMap(mapElement, mapOptions);
@@ -51,7 +59,7 @@ export class GoogleMapService {
                 placeId = place.place_id,
                 mapOptions = {
                     center: new google.maps.LatLng(currentPosition.latitude, currentPosition.longitude),
-                    zoom: 15, // hard code
+                    zoom: 15,
                 },
 
                 marker = new google.maps.Marker({
@@ -63,11 +71,11 @@ export class GoogleMapService {
 
                 service = new google.maps.places.PlacesService(this.map);
 
-            service.getDetails({
-                placeId: placeId,
-            }, (place, status) => {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    google.maps.event.addListener(marker, 'click', function () {
+            google.maps.event.addListener(marker, 'click', function () {
+                service.getDetails({
+                    placeId: placeId,
+                }, (place, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
                         // get reviews and embed it into infowindow
                         let container = '<ul>';
                         if (place.reviews && place.reviews.length) {
@@ -82,14 +90,17 @@ export class GoogleMapService {
                         container += '</ul>'
 
                         // website (anchor or pure text)
-                        let website = place.website ? `<a href="${place.website}" target="_blank"><strong>${place.name}</strong></a>` : `<strong>${place.name}</strong>`;
+                        let website = place.website ? `<a href="${place.website}" target="_blank"><strong>${place.name}</strong></a><br>` : `<strong>${place.name}</strong><br>`,
+                            rating = place.rating ? `<i class="fa fa-star"></i> ${place.rating}<br>` : '',
+                            address = place.formatted_address ? `<i class="fa fa-address-card-o"></i> ${place.formatted_address}<br>` : '',
+                            phone = place.formatted_phone_number ? `<i class="fa fa-phone"></i> ${place.formatted_phone_number}<br>` : '';
 
                         infowindow.setContent(`
                             <div>
-                                ${website}<br>
-                                <i class="fa fa-star"></i> ${place.rating}<br>
-                                <i class="fa fa-address-card-o"></i> ${place.formatted_address}<br>
-                                <i class="fa fa-phone"></i> ${place.formatted_phone_number}                                
+                                ${website}
+                                ${rating}
+                                ${address}
+                                ${phone}
                             </div>
                             <div>
                                 <i class="fa fa-users"></i> ${container}
@@ -97,8 +108,8 @@ export class GoogleMapService {
                         );
 
                         infowindow.open(this.map, this);
-                    });
-                }
+                    }
+                });
             });
         });
     }

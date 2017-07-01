@@ -60,9 +60,9 @@ export class HomeComponent extends BaseComponent implements OnInit, AfterViewIni
         this.googleMapService.nearbySearch(this.currentPosition, radius, keyword, 'restaurant', this.mapElement, (placeResults, placeServiceStatus, placeSearchPagination) => {
             if (placeServiceStatus == google.maps.places.PlacesServiceStatus.OK) {
                 this.results = placeResults;
-                for (let i = 0; i < placeResults.length; i++) {
-                    this.googleMapService.setMarker(placeResults[i], this.currentPosition);
-                }
+                placeResults.forEach(placeResult => {
+                    this.googleMapService.setMarker(placeResult, this.currentPosition);
+                });
 
                 this.LogComplete('search complete');
             }
