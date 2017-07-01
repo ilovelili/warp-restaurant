@@ -1,11 +1,11 @@
 import { Http } from '@angular/http';
-import { RESTClientBase, BaseUrl, GET, Query } from '../util/RESTClientBase';
+import { RESTClientBase, BaseUrl, GET, Query } from '../util/restclientbase';
 import { Restaurant } from '../model/restaurant';
 import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 
 /**
- * RestaurantClient communicates with cache server, trying to get the restaurant info saved in database. If no data found, we call google place api instead
+ * RestaurantClient communicates with server side
  */
 @Injectable()
 export class RestaurantClient extends RESTClientBase {
@@ -13,6 +13,11 @@ export class RestaurantClient extends RESTClientBase {
         super(http);
     }
 
+    // get place detailed info by id
     @GET("places")
     public getRestaurants( @Query('id') id: string): Observable<Restaurant[]> { return null; };
+
+    // // search nearby endpoint
+    // @GET("search")
+    // public nearbySearch( @Query('location') location: string, @Query('radius') radius: number, @Query('keyword') keyword: string): Observable<Restaurant[]> { return null; };
 }

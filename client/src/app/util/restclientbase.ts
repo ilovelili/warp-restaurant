@@ -32,7 +32,7 @@ import {
     URLSearchParams
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Config } from 'configs';
+import { Config } from 'config';
 
 @Injectable()
 @BaseUrl(Config.BaseURI)

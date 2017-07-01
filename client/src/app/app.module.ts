@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './component/home.component';
 import { PositionService } from './service/position.service';
 import { RestaurantClient } from './service/restaurantclient.service';
-import { GooglePlacesClient } from './service/googleplacesclient.service';
+import { GoogleMapService } from './service/googlemap.service';
 
 @NgModule({
     declarations: [
@@ -24,8 +24,8 @@ import { GooglePlacesClient } from './service/googleplacesclient.service';
     ],
     providers: [
         PositionService,
-        RestaurantClient,  
-        GooglePlacesClient,      
+        RestaurantClient,
+        GoogleMapService,
     ],
     bootstrap: [AppComponent]
 })

@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PositionService } from '../service/position.service';
-import { RestaurantClient } from '../service/restaurantclient.service';
-import { GooglePlacesClient } from '../service/googleplacesclient.service';
+import { GoogleMapService } from '../service/googlemap.service';
 import { Restaurant } from '../model/restaurant';
 import { Position as Pos } from '../model/position';
-import { Config } from 'configs';
+import { Config } from 'config';
 import { BaseComponent } from '../base.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -18,18 +16,23 @@ import 'rxjs/add/operator/map';
     styleUrls: ['./home.component.css'],
 })
 
-export class HomeComponent extends BaseComponent implements OnInit {
+export class HomeComponent extends BaseComponent implements OnInit, AfterViewInit {
     // Declare empty list of restaurant
-    private restaurants: Restaurant[] = [];
+    private results: google.maps.places.PlaceResult[] = [];
     private currentPosition: Pos = new Pos();
     private errormsg: string = '';
+    private mapElement: HTMLElement;
 
-    constructor(protected activatedRoute: ActivatedRoute, private http: Http, private positionService: PositionService, private restaurantClient: RestaurantClient, private googlePlacesClient: GooglePlacesClient) {
+    constructor(protected activatedRoute: ActivatedRoute, private positionService: PositionService, private googleMapService: GoogleMapService) {
         super(activatedRoute);
     }
 
     ngOnInit() {
         this.getCurrentPosition();
+    }
+
+    ngAfterViewInit() {
+        this.mapElement = document.getElementById('map');
     }
 
     // Get current latitude & longitude for google places API
@@ -49,33 +52,20 @@ export class HomeComponent extends BaseComponent implements OnInit {
         }
     }
 
-    // search near by 
-
-    // todo: CORS issue when using google place API https://stackoverflow.com/questions/15847623/googles-places-api-and-jquery-request-origin-http-localhost-is-not-allowed
-    // change my mind: move it to server side~
-    search(radius: number) {
+    // search nearby 
+    search(radius: number, keyword: string) {
         radius = radius || 500;
-        let location: string = this.resolveLocation();
-        this.googlePlacesClient.nearbySearch(location, radius, 'restaurant', Config.GooglePlacesAPIKey).subscribe(
-            (res: any[]) => {
-                if (res) {
-                    this.restaurants = res.map(data => {
-                        console.log(data);
-                        return data;
-                    });
-                }
-            },
-            (err) => {
-                this.LogError(err);
-            },
-            () => {
-                this.LogComplete("Search completed");
-            },
-        );
-    }
+        keyword = keyword || '';
 
-    resolveLocation(): string {
-        // format: <latitude>,<longtitude>
-        return `${this.currentPosition.latitude},${this.currentPosition.longitude}`;
+        this.googleMapService.nearbySearch(this.currentPosition, radius, keyword, 'restaurant', this.mapElement, (placeResults, placeServiceStatus, placeSearchPagination) => {
+            if (placeServiceStatus == google.maps.places.PlacesServiceStatus.OK) {
+                this.results = placeResults;
+                for (let i = 0; i < placeResults.length; i++) {
+                    this.googleMapService.setMarker(placeResults[i], this.currentPosition);
+                }
+
+                this.LogComplete('search complete');
+            }
+        });
     }
 }
