@@ -95,6 +95,7 @@ export class GoogleMapService {
                             address = place.formatted_address ? `<i class="fa fa-address-card-o"></i> ${place.formatted_address}<br>` : '',
                             phone = place.formatted_phone_number ? `<i class="fa fa-phone"></i> ${place.formatted_phone_number}<br>` : '';
 
+                        // https://support.google.com/business/answer/7035772?hl=en
                         infowindow.setContent(`
                             <div>
                                 ${website}
@@ -103,10 +104,12 @@ export class GoogleMapService {
                                 ${phone}
                             </div>
                             <div>
-                                <i class="fa fa-users"></i> ${container}
-                            </div>`
+                                <i class="fa fa-users"></i> ${container}                                
+                            </div>
+                            <div>
+                                <a class="btn btn-primary" href="https://search.google.com/local/writereview?placeid=${placeId}" target="_blank">Write review</a>
+                            </div>`                            
                         );
-
                         infowindow.open(this.map, this);
                     }
                 });
