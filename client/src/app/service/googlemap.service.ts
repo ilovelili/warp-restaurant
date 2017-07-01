@@ -48,6 +48,7 @@ export class GoogleMapService {
 
         this.onGoogleMapLibLoadComplete(() => {
             let placeLoc = place.geometry.location,
+                placeId = place.place_id,
                 mapOptions = {
                     center: new google.maps.LatLng(currentPosition.latitude, currentPosition.longitude),
                     zoom: 15, // hard code
@@ -58,11 +59,46 @@ export class GoogleMapService {
                     position: place.geometry.location
                 }),
 
-                infowindow = new google.maps.InfoWindow();
+                infowindow = new google.maps.InfoWindow(),
 
-            google.maps.event.addListener(marker, 'click', function () {
-                infowindow.setContent(place.name);
-                infowindow.open(this.map, this);
+                service = new google.maps.places.PlacesService(this.map);
+
+            service.getDetails({
+                placeId: placeId,
+            }, (place, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    google.maps.event.addListener(marker, 'click', function () {
+                        // get reviews and embed it into infowindow
+                        let container = '<ul>';
+                        if (place.reviews && place.reviews.length) {
+                            place.reviews.forEach(review => {
+                                container += `<li>
+                                    <i class="fa fa-user"></i><strong>${review.author_name} </strong> 
+                                    <i class="fa fa-star"></i><strong>${(<any>review).rating} </strong>
+                                    <i class="fa fa-comment"></i>${review.text}
+                                </li>`;
+                            });
+                        }
+                        container += '</ul>'
+
+                        // website (anchor or pure text)
+                        let website = place.website ? `<a href="${place.website}" target="_blank"><strong>${place.name}</strong></a>` : `<strong>${place.name}</strong>`;
+
+                        infowindow.setContent(`
+                            <div>
+                                ${website}<br>
+                                <i class="fa fa-star"></i> ${place.rating}<br>
+                                <i class="fa fa-address-card-o"></i> ${place.formatted_address}<br>
+                                <i class="fa fa-phone"></i> ${place.formatted_phone_number}                                
+                            </div>
+                            <div>
+                                <i class="fa fa-users"></i> ${container}
+                            </div>`
+                        );
+
+                        infowindow.open(this.map, this);
+                    });
+                }
             });
         });
     }
