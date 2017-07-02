@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PositionService } from '../service/position.service';
 import { GoogleMapService } from '../service/googlemap.service';
-import { Restaurant } from '../model/restaurant';
 import { Position as Pos } from '../model/position';
 import { Config } from 'config';
 import { BaseComponent } from '../base.component';

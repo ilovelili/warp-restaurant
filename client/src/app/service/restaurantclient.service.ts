@@ -1,6 +1,5 @@
 import { Http } from '@angular/http';
-import { RESTClientBase, BaseUrl, GET, Query } from '../util/restclientbase';
-import { Restaurant } from '../model/restaurant';
+import { RESTClientBase, GET, Query, POST, Body } from '../util/restclientbase';
 import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 
@@ -13,11 +12,11 @@ export class RestaurantClient extends RESTClientBase {
         super(http);
     }
 
-    // get place detailed info by id
+    // get place info by id
     @GET("places")
-    public getRestaurants( @Query('id') id: string): Observable<Restaurant[]> { return null; };
+    public getPlaceResult( @Query('placeId') placeId: string): Observable<{placeResult: google.maps.places.PlaceResult}> { return null; };
 
-    // // search nearby endpoint
-    // @GET("search")
-    // public nearbySearch( @Query('location') location: string, @Query('radius') radius: number, @Query('keyword') keyword: string): Observable<Restaurant[]> { return null; };
+    // create place info
+    @POST("places")
+    public createPlaceResult( @Body placeResult: google.maps.places.PlaceResult): Observable<{success: boolean}> { return null; };
 }

@@ -1,4 +1,6 @@
-// healthcheck.js
+/**
+ * Simple endpoint for healthy checking
+ */
 const router = require('express').Router();
 
 router.get('/', (req, res, next) => {
