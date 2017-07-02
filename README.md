@@ -53,6 +53,9 @@ Data Persisted to MongoDB.
     The server side just works as a cache server in the application. If we could find the corresponding data in database, we use this cached data and do not call Google API in that case.
     I consider it a good practice since we want to restrict the API access to prevent the overload/overuse on a (web) api endpoint or shorten the response time sometimes in real-world applications.
 
+## Deploy
+I personally perfer [Ansible](http://docs.ansible.com/ansible/docker_module.html).
+
 ## TBD
 1. mongo db auth
 2. PM2 intergration
