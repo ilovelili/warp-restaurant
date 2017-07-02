@@ -1,12 +1,12 @@
 const supertest = require('supertest');
 const app = require('../app');
-const api = supertest(app);
+const suite = supertest(app);
 
 const test = require('tape');
 
 test('GET /', t => {
     'use strict';
-    api
+    suite
         .get('/health')
         .expect('Content-type', /json/)
         .expect(200)
@@ -25,7 +25,7 @@ test('GET /', t => {
 // Ensure we get the proper 404 when trying to GET an unknown route
 test('GET unknown route', t => {
     'use strict';
-    api
+    suite
         .get(`/${Math.random() * 10}`)
         .expect(404)
         .end((err, res) => {
