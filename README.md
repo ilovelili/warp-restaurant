@@ -49,8 +49,8 @@ Data Persisted to MongoDB.
    supertest is used for API testing and intergrated with Travis CI.
 
 ## Note
-    Actually this application can be totally switched to 'serverless' since Google Places API provides nearby place search and review and update review feature. <br>
-    The server side just works as a cache server in the application. If we could find the corresponding data in database, we use this cached data and do not call Google API in that case. <br>
+    Actually this application can be totally switched to 'serverless' since Google Places API provides nearby place search and review and update review feature.
+    The server side just works as a cache server in the application. If we could find the corresponding data in database, we use this cached data and do not call Google API in that case.
     I consider it a good practice since we want to restrict the API access to prevent the overload/overuse on a (web) api endpoint or shorten the response time sometimes in real-world applications.
 
 ## TBD
