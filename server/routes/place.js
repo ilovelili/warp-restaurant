@@ -20,9 +20,6 @@ const http = require('http');
 // MongoDB URL from the docker-compose file
 const dbHost = `mongodb://database/${db}`;
 
-// Connect to mongodb
-mongoose.connect(dbHost);
-
 // create mongoose schema
 const placeSchema = new mongoose.Schema({
     placeId: String,
@@ -36,6 +33,10 @@ const Place = mongoose.model('Place', placeSchema);
 /* GET get placeResult */
 router.get('/places', (req, res) => {
     'use strict';
+    
+    // Connect to mongodb
+    mongoose.connect(dbHost);
+
     if (!req.query.placeId) {
         // find all
         Place.find({}, (err, places) => {
@@ -54,6 +55,10 @@ router.get('/places', (req, res) => {
 /* POST create a placeResult */
 router.post('/places', (req, res) => {
     'use strict';
+        
+    // Connect to mongodb
+    mongoose.connect(dbHost);
+
     let placeResult = req.body;
     let place = new Place({
         placeId: placeResult.place_id,
