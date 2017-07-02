@@ -5,8 +5,9 @@ const api = supertest(app);
 const test = require('tape');
 
 test('GET /', t => {
+    'use strict';
     api
-        .get('/')
+        .get('/health')
         .expect('Content-type', /json/)
         .expect(200)
         .end((err, res) => {
@@ -23,6 +24,7 @@ test('GET /', t => {
 
 // Ensure we get the proper 404 when trying to GET an unknown route
 test('GET unknown route', t => {
+    'use strict';
     api
         .get(`/${Math.random() * 10}`)
         .expect(404)

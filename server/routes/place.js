@@ -35,6 +35,7 @@ const Place = mongoose.model('Place', placeSchema);
 
 /* GET get placeResult */
 router.get('/places', (req, res) => {
+    'use strict';
     if (!req.query.placeId) {
         // find all
         Place.find({}, (err, places) => {
@@ -52,8 +53,8 @@ router.get('/places', (req, res) => {
 
 /* POST create a placeResult */
 router.post('/places', (req, res) => {
+    'use strict';
     let placeResult = req.body;
-
     let place = new Place({
         placeId: placeResult.place_id,
         placeResult: placeResult,

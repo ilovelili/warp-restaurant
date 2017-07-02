@@ -1,4 +1,5 @@
 module.exports = (configs) => {
+    'use strict';
     return async function error(req, res, next) {
         try {
             // catch 404 and forward to error handler
