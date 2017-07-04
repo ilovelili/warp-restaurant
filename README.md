@@ -11,7 +11,7 @@ http://188.226.157.229:4200/#/home
 ## Requirements
 * [Docker:17.06.0-ce (with Docker Compose:1.14.0)](https://docs.docker.com/)
 
-### Docker Hubs
+### Docker Images
 * [node:8.1.2-alpine](https://hub.docker.com/_/node/)
 * [mvertes/alpine-mongo](https://hub.docker.com/r/mvertes/alpine-mongo/)
 
