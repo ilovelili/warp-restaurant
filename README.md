@@ -7,6 +7,8 @@ http://188.226.157.229:4200/#/home
     This demo is hosted by my personal DigitalOcean Droplet.
     Please use Mozilla Firefox to access since Google Chrome will block non-secure origins for Google Places API. (It's not an application issue)
     You can access http://localhost:4200 in Chrome since localhost is considered as a whitelist domain.
+    
+    * (July 5th) The droplet hosting the demo application has been destroyed. Please let me know if you are still interested in the demo and I can set up a new one.
 
 ## Requirements
 * [Docker:17.06.0-ce (with Docker Compose:1.14.0)](https://docs.docker.com/)
@@ -59,8 +61,8 @@ Data Persisted to MongoDB.
 I personally perfer [Ansible](http://docs.ansible.com/ansible/docker_module.html).
 
 ## Note
-    Actually this application can be totally switched to 'serverless' since Google Places API provides nearby place search and review and update review feature.
-    The server side just works as a cache server in the application. If we could find the corresponding data in database, we use this cached data and do not call Google API in that case.
+    Actually this application can be totally switched to 'serverless' since Google Places API provides nearby place searching | reviewing | rating features which can fully satisfy the business need.
+    The back-end of the application just works as a cache server. If we could find the corresponding data in database, we use this cached data and do not call Google API in that case.
     I consider it a good practice since we want to restrict the API access to prevent the overload/overuse on a (web) api endpoint or shorten the response time sometimes in real-world applications.
 
 ## TBD
