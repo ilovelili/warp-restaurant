@@ -2,14 +2,14 @@
 [![Build Status](https://travis-ci.org/ilovelili/warp-restaurant.svg?branch=master)](https://travis-ci.org/ilovelili/warp-restaurant)
 
 ## Demo
+* (July 5th) The droplet hosting the demo application has been destroyed. Please let me know if you are still interested in the demo and I can set up a new one.
+
 http://188.226.157.229:4200/#/home
 
     This demo is hosted by my personal DigitalOcean Droplet.
     Please use Mozilla Firefox to access since Google Chrome will block non-secure origins for Google Places API. (It's not an application issue)
     You can access http://localhost:4200 in Chrome since localhost is considered as a whitelist domain.
     
-    * (July 5th) The droplet hosting the demo application has been destroyed. Please let me know if you are still interested in the demo and I can set up a new one.
-
 ## Requirements
 * [Docker:17.06.0-ce (with Docker Compose:1.14.0)](https://docs.docker.com/)
 
